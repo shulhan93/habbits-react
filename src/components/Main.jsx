@@ -1,12 +1,28 @@
+import { useState } from "react";
+import { useHabbits } from "../context/HabbitsContext";
+
 export default function Main({ children }) {
+  const { onAddComment, habbits, currentHabbit } = useHabbits();
+  const [comment, setComment] = useState("");
+
+  function handlerSubmitFrom(e) {
+    e.preventDefault();
+    onAddComment(comment);
+    setComment("");
+  }
+
   return (
     <main>
       {children}
 
       <div className="habbit">
-        <div className="habbit__day">День 1</div>
-        <form className="habbit__form">
+        <div className="habbit__day">
+          День {habbits[currentHabbit].days.length + 1}
+        </div>
+        <form className="habbit__form" onSubmit={handlerSubmitFrom}>
           <input
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
             className="input-icon"
             name="comment"
             type="text"

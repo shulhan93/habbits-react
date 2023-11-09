@@ -15,7 +15,7 @@ function HabbitsProvider({ children }) {
   );
 
   const [openModal, setOpenModal] = useState(false);
-  const [currentHabbit, setCurrentHabbit] = useState("");
+  const [currentHabbit, setCurrentHabbit] = useState(0);
 
   function handleAddHabbit(title, step) {
     const habbit = {
@@ -27,6 +27,15 @@ function HabbitsProvider({ children }) {
     setCurrentHabbit(habbit.id);
 
     setHabbits([...habbits, habbit]);
+  }
+
+  function handlerAddComment(comment) {
+    const habbit = {
+      ...habbits[currentHabbit],
+      days: [...habbits[currentHabbit].days, { comment }],
+    };
+
+    setHabbits(habbits.with(currentHabbit, habbit));
   }
 
   useEffect(
@@ -41,6 +50,7 @@ function HabbitsProvider({ children }) {
       value={{
         habbits,
         onAddHabbit: handleAddHabbit,
+        onAddComment: handlerAddComment,
         openModal,
         setOpenModal,
         currentHabbit,
