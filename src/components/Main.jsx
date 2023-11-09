@@ -44,7 +44,7 @@ export default function Main({ children }) {
         </div>
       )}
 
-      <div className="welcome">Добавьте привычки</div>
+      {!habbits.length && <div className="welcome">Добавьте привычки</div>}
     </main>
   );
 }

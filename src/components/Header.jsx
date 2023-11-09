@@ -4,8 +4,11 @@ export default function Header() {
   const { currentHabbit, habbits } = useHabbits();
 
   let percent =
-    (habbits[currentHabbit]?.days.length / habbits[currentHabbit]?.step) *
-      100 || 0;
+    Math.floor(
+      (habbits[currentHabbit]?.days.length / habbits[currentHabbit]?.step) * 100
+    ) || 0;
+
+  console.log(percent);
 
   return (
     <header className="header">

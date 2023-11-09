@@ -17,11 +17,12 @@ function HabbitsProvider({ children }) {
   const [openModal, setOpenModal] = useState(false);
   const [currentHabbit, setCurrentHabbit] = useState(0);
 
-  function handleAddHabbit(title, step) {
+  function handleAddHabbit(title, step, icon) {
     const habbit = {
       id: habbits.length,
       title,
       step,
+      icon,
       days: [],
     };
     setCurrentHabbit(habbit.id);

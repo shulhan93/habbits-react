@@ -1,6 +1,6 @@
 import { useHabbits } from "../context/HabbitsContext";
 
-export default function Habbit({ text, id }) {
+export default function Habbit({ text, id, icon }) {
   const { currentHabbit, setCurrentHabbit } = useHabbits();
   return (
     <button
@@ -9,7 +9,7 @@ export default function Habbit({ text, id }) {
         currentHabbit === id ? "menu__item_active" : ""
       }`}
     >
-      {text}
+      {icon}
     </button>
   );
 }

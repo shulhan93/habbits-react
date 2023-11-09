@@ -13,7 +13,12 @@ export default function Panel() {
       <nav className="menu">
         <div className="menu__list">
           {habbits.map((habbit, i) => (
-            <Habbit key={i} id={habbit.id} text={habbit.id} />
+            <Habbit
+              key={i}
+              id={habbit.id}
+              text={habbit.id}
+              icon={habbit.icon}
+            />
           ))}
         </div>
         <button className="btn menu__add" onClick={() => setOpenModal(true)}>

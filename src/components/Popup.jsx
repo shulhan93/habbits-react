@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { useHabbits } from "../context/HabbitsContext";
+import EmojiPicker from "emoji-picker-react";
 
 export default function Popup() {
   const { openModal, setOpenModal, onAddHabbit } = useHabbits();
   const [title, setTitle] = useState("");
   const [step, setStep] = useState("");
+  const [icon, setIcon] = useState("");
+  const [emoji, setEmoji] = useState(false);
 
   function handlerSubmitForm(e) {
     e.preventDefault();
 
-    onAddHabbit(title, step);
+    onAddHabbit(title, step, icon);
     setTitle("");
     setStep("");
     setOpenModal(false);
+    setIcon("");
   }
   return (
     <>
@@ -20,8 +24,27 @@ export default function Popup() {
         <div className="cover cover_hidden">
           <div className="popup">
             <h2>Новая привычка</h2>
-            <div className="icon-label">Иконка</div>
+            <div className="icon-label">
+              <div className="emoji">
+                <span>{icon}</span>{" "}
+              </div>
+              <button onClick={() => setEmoji(!emoji)} className="btn btn_lg">
+                {!emoji ? `Выбрать эмоджи` : "Скрыть эмоджи"}
+              </button>
+            </div>
 
+            {emoji && (
+              <EmojiPicker
+                previewConfig={{
+                  showPreview: false,
+                }}
+                height={280}
+                onEmojiClick={(emojiData) => {
+                  setIcon(emojiData.emoji);
+                  setEmoji(!emoji);
+                }}
+              />
+            )}
             <button
               className="popup__close"
               onClick={() => setOpenModal(false)}
@@ -35,6 +58,7 @@ export default function Popup() {
                 placeholder="Название"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
               />
 
               <input
@@ -43,6 +67,7 @@ export default function Popup() {
                 type="number"
                 name="target"
                 placeholder="Цель"
+                required
               />
               <button
                 className="btn btn_lg"
