@@ -17,7 +17,10 @@ export default function Main({ children }) {
 
       <div className="habbit">
         <div className="habbit__day">
-          День {habbits[currentHabbit].days.length + 1}
+          День{" "}
+          {!habbits[currentHabbit]?.days
+            ? 1
+            : habbits[currentHabbit]?.days.length + 1}
         </div>
         <form className="habbit__form" onSubmit={handlerSubmitFrom}>
           <input

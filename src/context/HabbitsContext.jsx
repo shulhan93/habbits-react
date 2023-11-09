@@ -22,17 +22,28 @@ function HabbitsProvider({ children }) {
       id: habbits.length,
       title,
       step,
-      days: [{ comment: "Первый подход всегда дается тяжело" }],
+      days: [
+        { id: title + step, comment: "Первый подход всегда дается тяжело" },
+      ],
     };
     setCurrentHabbit(habbit.id);
 
     setHabbits([...habbits, habbit]);
   }
 
+  function handlerDelDay(id) {
+    const habbit = {
+      ...habbits[currentHabbit],
+      days: habbits[currentHabbit].days.filter((day) => day.id != id),
+    };
+
+    setHabbits(habbits.with(currentHabbit, habbit));
+  }
+
   function handlerAddComment(comment) {
     const habbit = {
       ...habbits[currentHabbit],
-      days: [...habbits[currentHabbit].days, { comment }],
+      days: [...habbits[currentHabbit].days, { id: comment, comment }],
     };
 
     setHabbits(habbits.with(currentHabbit, habbit));
@@ -51,6 +62,7 @@ function HabbitsProvider({ children }) {
         habbits,
         onAddHabbit: handleAddHabbit,
         onAddComment: handlerAddComment,
+        onDelDay: handlerDelDay,
         openModal,
         setOpenModal,
         currentHabbit,
