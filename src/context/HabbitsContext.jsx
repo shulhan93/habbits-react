@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 const HabbitsContext = createContext();
-import habbits from "../data/demo.json";
+import { v4 as uuid } from "uuid";
 
 function useHabbits() {
   const context = useContext(HabbitsContext);
@@ -22,9 +22,7 @@ function HabbitsProvider({ children }) {
       id: habbits.length,
       title,
       step,
-      days: [
-        { id: title + step, comment: "Первый подход всегда дается тяжело" },
-      ],
+      days: [],
     };
     setCurrentHabbit(habbit.id);
 
@@ -43,7 +41,7 @@ function HabbitsProvider({ children }) {
   function handlerAddComment(comment) {
     const habbit = {
       ...habbits[currentHabbit],
-      days: [...habbits[currentHabbit].days, { id: comment, comment }],
+      days: [...habbits[currentHabbit].days, { id: uuid(), comment }],
     };
 
     setHabbits(habbits.with(currentHabbit, habbit));
